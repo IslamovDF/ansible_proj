@@ -1,0 +1,39 @@
+services:
+    backend1:
+        build:
+            context: ./backend1
+            dockerfile: Dockerfile
+        networks:
+            - meganet
+        container_name: backend1
+        ports:
+            - "8080:80"
+        restart: unless-stopped
+        tty: true
+
+    backend2:
+        build:
+            context: ./backend2
+            dockerfile: Dockerfile
+        networks:
+            - meganet
+        container_name: backend2
+        ports:
+            - "8081:80"
+        restart: unless-stopped
+        tty: true
+
+    ansible:
+        container_name: ansible
+        tty: true
+        build:
+            context: ./ansible
+            dockerfile: Dockerfile
+        networks:
+            - meganet
+        volumes:
+            - ./ansible/ansible_conf:/etc/ansible
+
+networks:
+    meganet:
+        driver: bridge
