@@ -1,4 +1,0 @@
-- name: Primer
-  hosts: all
-    tasks:
-    - ping
