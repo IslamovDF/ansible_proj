@@ -33,6 +33,7 @@ services:
             - meganet
         volumes:
             - ./ansible/ansible_conf:/etc/ansible
+            - ./ansible/playbooks:/etc/ansible/playbooks
 
 networks:
     meganet:

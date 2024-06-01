@@ -1,0 +1,41 @@
+- name: Install and up nginx
+  hosts: backend
+  become: true
+  become_method: sudo
+  become_user:
+    root
+  remote_user:
+    ansible
+  tasks:
+    - name: Installs nginx web server
+      apt: pkg=nginx state=latest update_cache=true
+    - name: Up nginx service
+      service: name=nginx state=started enabled=yes
+
+- name: Copy web content to backend1
+  hosts: backend1
+  become: true
+  become_method: sudo
+  become_user:
+    root
+  remote_user:
+    ansible
+  tasks:
+    - name: Add index.html to backend1
+      copy:
+        src: /etc/ansible/backend1.html
+        dest: /var/www/html/index.nginx-debian.html
+
+- name: Copy web content to backend2
+  hosts: backend2
+  become: true
+  become_method: sudo
+  become_user:
+    root
+  remote_user:
+    ansible
+  tasks:
+    - name: Add index.html to backend2
+      copy:
+        src: /etc/ansible/backend2.html
+        dest: /var/www/html/index.nginx-debian.html

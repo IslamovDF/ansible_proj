@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
     openssh-server \
     iputils-ping \
     python3 \
+    sudo \
     iproute2
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -12,6 +13,8 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN useradd -rm -d /home/ansible -s /bin/bash -g root -u 1000 ansible
 
 RUN  echo 'ansible:ansible' | chpasswd
+
+RUN echo 'ansible ALL=(ALL:ALL) ALL' >> /etc/sudoers
 
 RUN service ssh start
 
