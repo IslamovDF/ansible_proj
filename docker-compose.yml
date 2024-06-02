@@ -1,4 +1,28 @@
 services:
+    lb1:
+        build:
+            context: ./lb1
+            dockerfile: Dockerfile
+        networks:
+            - meganet
+        container_name: lb1
+        ports:
+            - "80:80"
+        restart: unless-stopped
+        tty: true
+
+    lb2:
+        build:
+            context: ./lb2
+            dockerfile: Dockerfile
+        networks:
+            - meganet
+        container_name: lb2
+        ports:
+            - "81:80"
+        restart: unless-stopped
+        tty: true
+
     backend1:
         build:
             context: ./backend1
@@ -33,7 +57,6 @@ services:
             - meganet
         volumes:
             - ./ansible/ansible_conf:/etc/ansible
-            - ./ansible/playbooks:/etc/ansible/playbooks
 
 networks:
     meganet:

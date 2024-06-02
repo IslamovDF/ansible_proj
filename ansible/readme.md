@@ -1,0 +1,1 @@
+- ansible-playbook /etc/ansible/playbooks/nginx.yml -kK
